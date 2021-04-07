@@ -39,10 +39,10 @@ class ErrorStore(object):
             errors[level] = Counter([error.name for error in self.errors if error.level == level])
         return errors
 
-    def get_errors_by_type(self, error_type):
+    def get_errors_by_level(self, error_level):
         """
         Returns a list of filtered errors as requested.
-        :param error_type: str representation of an error type e.g. ERROR, WARNING, INFO
+        :param error_level: str representation of an error level e.g. ERROR, WARNING, INFO, DEBUG
         :return: List of errors
         """
-        return [error for error in self.errors if error.level == error_type]
+        return [error for error in self.errors if error.level == error_level]

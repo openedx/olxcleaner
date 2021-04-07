@@ -157,8 +157,8 @@ def test_validate_course11():
 
     course, errorstore, url_names = validate(**validate_kwargs)
 
-    errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
-    warnings = errorstore.get_errors_by_type(ErrorLevel.WARNING.name)
+    errors = errorstore.get_errors_by_level(ErrorLevel.ERROR.name)
+    warnings = errorstore.get_errors_by_level(ErrorLevel.WARNING.name)
 
     assert len(errors) == total_errors
     assert len(warnings) == total_warnings
@@ -169,8 +169,8 @@ def test_validate_course11():
         # Do not throw error when an xblock is allowed.
         course, errorstore, url_names = validate(**validate_kwargs, allowed_xblocks=current_allowed_xblocks)
 
-        errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
-        warnings = errorstore.get_errors_by_type(ErrorLevel.WARNING.name)
+        errors = errorstore.get_errors_by_level(ErrorLevel.ERROR.name)
+        warnings = errorstore.get_errors_by_level(ErrorLevel.WARNING.name)
 
         assert len(errors) == total_errors - len(current_allowed_xblocks)
         assert len(warnings) == total_warnings
