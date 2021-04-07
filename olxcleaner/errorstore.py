@@ -6,6 +6,7 @@ Structures to accumulate and track errors in a course
 """
 from collections import Counter
 
+
 class ErrorStore(object):
     """Class to store all errors in an import"""
 
@@ -37,3 +38,11 @@ class ErrorStore(object):
         for level in levelcounter:
             errors[level] = Counter([error.name for error in self.errors if error.level == level])
         return errors
+
+    def get_errors_by_type(self, error_type):
+        """
+        Returns a list of filtered errors as requested.
+        :param error_type: str representation of an error type e.g. ERROR, WARNING, INFO
+        :return: List of errors
+        """
+        return [error for error in self.errors if error.level == error_type]

@@ -3,6 +3,11 @@ test_validate.py
 
 Tests the full validation pipeline
 """
+from olxcleaner import validate
+from olxcleaner.exceptions import ErrorLevel
+from olxcleaner.parser.parser_exceptions import (DateOrdering, InvalidSetting,
+                                                 LTIError, MissingFile,
+                                                 MissingURLName, Obsolete)
 from tests.helpers import assert_caught_all_errors, assert_error
 from tests.test_load_policy import handle_course1_errors
 from tests.test_load_xml import handle_course2_errors, handle_nocourse_errors
@@ -11,11 +16,6 @@ from tests.test_validators import (handle_discussion_id_errors_in_10,
                                    handle_display_name_errors_in_10,
                                    handle_general_errors_in_10,
                                    handle_link_errors_in_10)
-
-from olxcleaner import validate
-from olxcleaner.parser.parser_exceptions import (DateOrdering, InvalidSetting,
-                                                 LTIError, MissingFile,
-                                                 MissingURLName, Obsolete)
 
 
 def test_validate_nocourse():
@@ -150,14 +150,19 @@ def test_validate_course11():
         "wiki"
     ]
     total_errors = len(allowed_xblocks)
-    validate_kwargs = dict(filename="testcourses/testcourse11", steps=1)
+    total_warnings = 1
+    validate_kwargs = dict(filename="testcourses/testcourse11/course-1.xml", steps=1)
     # wiki, recommender, edx_sga, crowdsourcehinter, done, word_cloud
     course, errorstore, url_names = validate(**validate_kwargs)
-    assert len(errorstore.errors) == total_errors
+    errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
+    warnings = errorstore.get_errors_by_type(ErrorLevel.WARNING.name)
+    assert len(errors) == total_errors
+    assert len(warnings) == total_warnings
 
     current_allowed_xblocks = []
     for xblock in allowed_xblocks:
         current_allowed_xblocks.append(xblock)
         # Do not throw error when an xblock is allowed.
         course, errorstore, url_names = validate(**validate_kwargs, allowed_xblocks=current_allowed_xblocks)
-        assert len(errorstore.errors) == total_errors - len(current_allowed_xblocks)
+        errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
+        assert len(errors) == total_errors - len(current_allowed_xblocks)
