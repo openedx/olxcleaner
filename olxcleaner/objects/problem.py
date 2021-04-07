@@ -98,6 +98,9 @@ class EdxProblem(EdxContent):
 
         :return: True/False
         """
+        if self.content is None:
+            return False
+
         # Does there exist at least one <solution> tag?
         if self.content.find('.//solution') is not None:
             return True
@@ -110,6 +113,9 @@ class EdxProblem(EdxContent):
         :return: List of response types used
         """
         tags = []
+        if self.content is None:
+            return []
+
         for rtype in response_types:
             # Does there exist at least one of these tags?
             if self.content.find('.//' + rtype) is not None:
@@ -123,6 +129,9 @@ class EdxProblem(EdxContent):
         :return: List of input types used
         """
         tags = []
+        if self.content is None:
+            return []
+
         for itype in input_types:
             # Does there exist at least one of these tags?
             if self.content.find('.//' + itype) is not None:
@@ -137,6 +146,9 @@ class EdxProblem(EdxContent):
         """
         # This code is modified from the edx-platform repository
         codetypes = set()
+        if self.content is None:
+            return []
+
         for script in self.content.findall('.//script'):
             stype = script.get('type')
             # Code is contained in script.text

@@ -35,7 +35,6 @@ def test_validate_course2():
     handle_course2_errors(errorstore)
     assert_caught_all_errors(errorstore)
 
-
 def test_validate_course7():
     course, errorstore, url_names = validate("testcourses/testcourse7/course.xml", 5)
     handle_course7_errors(errorstore)

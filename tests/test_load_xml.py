@@ -90,6 +90,7 @@ def handle_course2_errors(errorstore):
     assert_error(errorstore, FileDoesNotExist, 'html/html4.xml', "The <html url_name='html4'> tag points to the file html/htmlnotexist.html that does not exist")
     assert_error(errorstore, FileDoesNotExist, 'vertical/myvertical3.xml', "The <html> tag points to the file html/nonexistant.html that does not exist")
     assert_error(errorstore, DuplicateHTMLName, 'vertical/myvertical3.xml', "Two html tags refer to the same HTML file (using the 'filename' attribute): html/html7.html is referenced in vertical/myvertical3.xml and html/html7.xml")
+    assert_error(errorstore, EmptyTag,'problem/problem3.xml' , "The <problem url_name='problem3' display_name='Blank Common Problem'> tag is unexpectedly empty")
 
 def test_course3():
     """Test for XML error in course.xml"""
