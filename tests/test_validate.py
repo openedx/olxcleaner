@@ -139,7 +139,9 @@ def test_validate_course11():
     Tests validate when given a set of allowed xblocks.
 
     The test course uses currently unsupported xblocks which
-    could fail the validate call.
+    could fail the validate call. Testcourse11 contains 6 Errors and 1 Warning.
+        Errors: UnexpectedTag: wiki, recommender, edx_sga, crowdsourcehinter, done, word_cloud
+        Warnings: CourseXMLName: The course file, course-1.xml, is not named course.xml
     """
     allowed_xblocks = [
         "recommender",
@@ -152,10 +154,12 @@ def test_validate_course11():
     total_errors = len(allowed_xblocks)
     total_warnings = 1
     validate_kwargs = dict(filename="testcourses/testcourse11/course-1.xml", steps=1)
-    # wiki, recommender, edx_sga, crowdsourcehinter, done, word_cloud
+
     course, errorstore, url_names = validate(**validate_kwargs)
+
     errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
     warnings = errorstore.get_errors_by_type(ErrorLevel.WARNING.name)
+
     assert len(errors) == total_errors
     assert len(warnings) == total_warnings
 
@@ -164,5 +168,9 @@ def test_validate_course11():
         current_allowed_xblocks.append(xblock)
         # Do not throw error when an xblock is allowed.
         course, errorstore, url_names = validate(**validate_kwargs, allowed_xblocks=current_allowed_xblocks)
+
         errors = errorstore.get_errors_by_type(ErrorLevel.ERROR.name)
+        warnings = errorstore.get_errors_by_type(ErrorLevel.WARNING.name)
+
         assert len(errors) == total_errors - len(current_allowed_xblocks)
+        assert len(warnings) == total_warnings
