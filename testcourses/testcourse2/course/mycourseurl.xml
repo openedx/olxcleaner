@@ -1,3 +1,4 @@
 <course>
   <chapter url_name="mychapter" />
+  <wiki slug="test_wiki"/>
 </course>

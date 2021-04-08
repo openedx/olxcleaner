@@ -3,7 +3,7 @@ test_validate.py
 
 Tests the full validation pipeline
 """
-from tests.helpers import assert_caught_all_errors, assert_error
+from tests.helpers import assert_caught_all_errors, assert_error, assert_not_error
 from tests.test_load_policy import handle_course1_errors
 from tests.test_load_xml import handle_course2_errors, handle_nocourse_errors
 from tests.test_parser import handle_course7_errors
@@ -13,6 +13,7 @@ from tests.test_validators import (handle_discussion_id_errors_in_10,
                                    handle_link_errors_in_10)
 
 from olxcleaner import validate
+from olxcleaner.loader.xml_exceptions import UnexpectedTag
 from olxcleaner.parser.parser_exceptions import (DateOrdering, InvalidSetting,
                                                  LTIError, MissingFile,
                                                  MissingURLName, Obsolete)
@@ -34,6 +35,17 @@ def test_validate_course2():
     course, errorstore, url_names = validate("testcourses/testcourse2/coursefile.xml", 1)
     handle_course2_errors(errorstore)
     assert_caught_all_errors(errorstore)
+
+
+def test_validate_course2_wiki_xblock_is_supported():
+    """
+    Test validate for course with wiki
+    :return:
+    """
+    course, errorstore, url_names = validate("testcourses/testcourse2/coursefile.xml", 1)
+    assert_not_error(errorstore, UnexpectedTag, 'course/mycourseurl.xml',
+                 "A <wiki> tag was unexpectedly found inside the <course url_name='mycourseurl'> tag")
+
 
 def test_validate_course7():
     course, errorstore, url_names = validate("testcourses/testcourse7/course.xml", 5)
@@ -145,12 +157,11 @@ def test_validate_course11():
         "edx_sga",
         "crowdsourcehinter",
         "done",
-        "word_cloud",
-        "wiki"
+        "word_cloud"
     ]
     total_errors = len(allowed_xblocks)
     validate_kwargs = dict(filename="testcourses/testcourse11", steps=1)
-    # wiki, recommender, edx_sga, crowdsourcehinter, done, word_cloud
+    # recommender, edx_sga, crowdsourcehinter, done, word_cloud
     course, errorstore, url_names = validate(**validate_kwargs)
     assert len(errorstore.errors) == total_errors
 

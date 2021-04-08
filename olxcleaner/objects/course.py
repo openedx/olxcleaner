@@ -19,7 +19,7 @@ class EdxCourse(EdxObject):
 
     @property
     def allowed_children(self):
-        return ["chapter"]
+        return ["chapter", "wiki"]
 
     directory = None
     fullpath = None

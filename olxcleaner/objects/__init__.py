@@ -21,3 +21,4 @@ from olxcleaner.objects.vertical import EdxVertical
 from olxcleaner.objects.video import EdxVideo
 from olxcleaner.objects.draganddropv2 import EdxDragAndDropV2
 from olxcleaner.objects.openassessment import EdxORA
+from olxcleaner.objects.wiki import Wiki

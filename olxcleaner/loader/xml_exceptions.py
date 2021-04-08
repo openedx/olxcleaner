@@ -28,7 +28,7 @@ class InvalidHTML(CourseError):
 
     def __init__(self, filename, **kwargs):
         super().__init__(filename)
-        self._description = kwargs['error']
+        self._description = f"InvalidHTML ({filename}): {kwargs['error']}"
 
 class CourseXMLName(CourseError):
     """The master file was not called `course.xml`."""
