@@ -80,7 +80,7 @@ def handle_course2_errors(errorstore):
     assert_error(errorstore, InvalidPointer, 'sequential/mysequential.xml', "The <vertical url_name='myvertical9' display_name='Hi there'> tag looks like it is an invalid pointer tag")
     assert_error(errorstore, UnexpectedContent, 'vertical/myvertical10.xml', "The <vertical url_name='myvertical10' display_name='something'> tag should not contain any text (Here is some co...)")
     assert_error(errorstore, UnexpectedContent, 'sequential/mysequential.xml', "The <vertical> tag should not contain any text (Here's some bad...)")
-    assert_error(errorstore, InvalidHTML, 'html/html3.html', 'InvalidHTML (html/html3.html): Unexpected end tag : b, line 1, column 34')
+    assert_error(errorstore, InvalidHTML, 'html/html3.html', 'Unexpected end tag : b, line 1, column 34')
     assert_error(errorstore, PossiblePointer, 'vertical/myvertical1.xml', "The <problem url_name='problem2'> tag is not a pointer, but a file that it could point to exists (problem/problem2.xml)")
     assert_error(errorstore, PossibleHTMLPointer, 'html/html6.xml', "The <html url_name='html6'> tag is not a pointer, but a file that it could point to exists (html/html3.html)")
     assert_error(errorstore, PossibleHTMLPointer, 'vertical/myvertical3.xml', "The <html> tag is not a pointer, but a file that it could point to exists (html/html3.html)")
