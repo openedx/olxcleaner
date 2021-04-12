@@ -55,13 +55,13 @@ class EmptyTag(CourseError):
         super().__init__(filename)
         self._description = f"The {kwargs['edxobj']} tag is unexpectedly empty"
 
-class ExtraURLName(CourseError):
+class URLNameMismatch(CourseError):
     """A tag that had been pointed to by `url_name` from another file has a `url_name` of its own."""
     _level = ErrorLevel.WARNING
 
     def __init__(self, filename, **kwargs):
         super().__init__(filename)
-        self._description = f"The opening <{kwargs['tag']}> tag shouldn't have a url_name attribute"
+        self._description = f"The opening <{kwargs['tag']}> tag has a mismatched url in url_name."
 
 class InvalidPointer(CourseError):
     """This tag appears to be trying to point to another file, but contains unexpected attributes, and is hence not pointing."""

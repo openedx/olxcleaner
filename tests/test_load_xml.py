@@ -20,7 +20,7 @@ from olxcleaner.loader.xml_exceptions import (
     InvalidPointer,
     UnexpectedTag,
     InvalidHTML,
-    ExtraURLName,
+    URLNameMismatch,
     UnexpectedContent,
     EmptyTag,
     PossiblePointer,
@@ -67,7 +67,7 @@ def test_course2():
 
 def handle_course2_errors(errorstore):
     assert_error(errorstore, CourseXMLName, 'coursefile.xml', 'The course file, coursefile.xml, is not named course.xml')
-    assert_error(errorstore, ExtraURLName, 'sequential/mysequential.xml', "The opening <sequential> tag shouldn't have a url_name attribute")
+    assert_error(errorstore, URLNameMismatch, 'sequential/mysequential.xml', "The opening <sequential> tag has a mismatched url in url_name.")
     assert_error(errorstore, FileDoesNotExist, 'sequential/mysequential.xml', "The <vertical url_name='myverticalnone'> tag points to the file vertical/myverticalnone.xml that does not exist")
     assert_error(errorstore, EmptyTag, 'vertical/myvertical4.xml', "The <vertical url_name='myvertical4' display_name='Hello'> tag is unexpectedly empty")
     assert_error(errorstore, EmptyTag, 'sequential/mysequential.xml', "The <vertical> tag is unexpectedly empty")
@@ -91,6 +91,8 @@ def handle_course2_errors(errorstore):
     assert_error(errorstore, FileDoesNotExist, 'vertical/myvertical3.xml', "The <html> tag points to the file html/nonexistant.html that does not exist")
     assert_error(errorstore, DuplicateHTMLName, 'vertical/myvertical3.xml', "Two html tags refer to the same HTML file (using the 'filename' attribute): html/html7.html is referenced in vertical/myvertical3.xml and html/html7.xml")
     assert_error(errorstore, EmptyTag,'problem/problem3.xml' , "The <problem url_name='problem3' display_name='Blank Common Problem'> tag is unexpectedly empty")
+    assert_error(errorstore, URLNameMismatch, 'video/video3.xml', "The opening <video> tag has a mismatched url in url_name.")
+    assert_error(errorstore, URLNameMismatch, 'discussion/discussion1.xml', "The opening <discussion> tag has a mismatched url in url_name.")
 
 def test_course3():
     """Test for XML error in course.xml"""

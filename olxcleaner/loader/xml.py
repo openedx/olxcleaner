@@ -13,7 +13,7 @@ from lxml.etree import XMLSyntaxError
 from olxcleaner.exceptions import ClassDoesNotExist
 from olxcleaner.loader.xml_exceptions import (CourseXMLDoesNotExist,
                                               CourseXMLName, DuplicateHTMLName,
-                                              EmptyTag, ExtraURLName,
+                                              EmptyTag, URLNameMismatch,
                                               FileDoesNotExist, InvalidHTML,
                                               InvalidPointer, InvalidXML,
                                               NonFlatFilename, NonFlatURLName,
@@ -199,9 +199,10 @@ def read_course(edxobj, node, directory, filename, errorstore, htmlfiles, pointe
 
     # At this stage, we've checked for pointer tags and associated errors
 
-    # The target of a pointer should have no url_name attribute
-    if pointer and "url_name" in node.attrib:
-        errorstore.add_error(ExtraURLName(filename, tag=node.tag))
+    # The pointer url should match with it's filename
+    node_filename = os.path.splitext(os.path.split(filename)[-1])[0]
+    if pointer and "url_name" in node.attrib and not node.attrib.get('url_name') == node_filename:
+        errorstore.add_error(URLNameMismatch(filename, tag=node.tag))
 
     # Is the tag unexpectedly empty?
     if empty and not edxobj.can_be_empty:
