@@ -200,7 +200,6 @@ def read_course(edxobj, node, directory, filename, errorstore, htmlfiles, pointe
     # At this stage, we've checked for pointer tags and associated errors
 
     # The pointer url should match with it's filename
-    node_filename = os.path.splitext(os.path.split(filename)[-1])[0]
     if pointer and "url_name" in node.attrib and not node.attrib.get('url_name') == node_filename:
         errorstore.add_error(URLNameMismatch(filename, tag=node.tag))
 
@@ -270,3 +269,11 @@ def check_tag_is_allowed(tag, allowed_children, allowed_xblocks):
     if allowed_xblocks is None:
         return tag in allowed_children
     return tag in allowed_xblocks or tag in allowed_children
+
+"""
+import olxcleaner;from olxcleaner.reporting import report_errors
++
++__, errorstore, __ = olxcleaner.validate("/Users/awaisjibran/workspace/edXDevstack/src/olxcleaner/testcourses/testcourse2/coursefile.xml")
++__ = [print(f'{er}') for er in report_errors(errorstore)]
++ __ = [print(f'{er}') for er in report_errors(errorstore) if er.startswith('WARNING ExtraURLName')]
+"""
