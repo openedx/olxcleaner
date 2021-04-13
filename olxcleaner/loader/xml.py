@@ -20,7 +20,7 @@ from olxcleaner.loader.xml_exceptions import (CourseXMLDoesNotExist,
                                               PossibleHTMLPointer,
                                               PossiblePointer, SelfPointer,
                                               TagMismatch, UnexpectedContent,
-                                              UnexpectedTag)
+                                              UnexpectedTag, PointerAlreadyPointedAt)
 from olxcleaner.objects import EdxObject
 
 
@@ -109,12 +109,18 @@ def read_course(edxobj, node, directory, filename, errorstore, htmlfiles, pointe
                     empty = False
 
     # Check for a pointer tag
+    node_filename = os.path.splitext(os.path.split(filename)[-1])[0]
     if empty and edxobj.is_pointer(node.attrib):
-
         if pointer:
-            # The target of a pointer tag cannot be a pointer itself
-            errorstore.add_error(SelfPointer(filename,
-                                             edxobj=edxobj))
+            node_pointing_to_itself = node.attrib.get('url_name') == node_filename
+            if node_pointing_to_itself:
+                # The target of a pointer tag cannot be a pointer itself
+                pointer_error = SelfPointer
+            else:
+                # The target of a pointer has been pointed to and is unexpectedly empty.
+                pointer_error = PointerAlreadyPointedAt
+
+            errorstore.add_error(pointer_error(filename, edxobj=edxobj))
             edxobj.broken = True
             return
 
@@ -200,7 +206,6 @@ def read_course(edxobj, node, directory, filename, errorstore, htmlfiles, pointe
     # At this stage, we've checked for pointer tags and associated errors
 
     # The pointer url should match with it's filename
-    node_filename = os.path.splitext(os.path.split(filename)[-1])[0]
     if pointer and "url_name" in node.attrib and not node.attrib.get('url_name') == node_filename:
         errorstore.add_error(URLNameMismatch(filename, tag=node.tag))
 
