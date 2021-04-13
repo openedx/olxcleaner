@@ -29,6 +29,8 @@ def test_display_names():
 def handle_general_errors_in_10(errorstore):
     assert_error(errorstore, TagMismatch, 'chapter/broken_chapter.xml', "The file is of type <chapter> but opens with a <sequential> tag")
     assert_error(errorstore, Obsolete, 'vertical/dndvert.xml', "The tag <lti url_name='lti2' display_name='something'> should be converted to the newer lti_consumer Xblock.")
+    assert_error(errorstore, TagMismatch, 'html/tagmismatch.xml', "The file is of type <html> but opens with a <div> tag")
+
 
 def handle_display_name_errors_in_10(errorstore):
     assert_error(errorstore, MissingDisplayName, 'course/mycourseurl.xml', "The tag <course url_name='mycourseurl'> is missing the display_name attribute.")

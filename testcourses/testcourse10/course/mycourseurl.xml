@@ -6,6 +6,7 @@
           <p>Test course</p>
         </html>
         <html url_name="linktest"/>
+        <html url_name="tagmismatch"/>
         <discussion discussion_target="Something" discussion_category="Something else" discussion_id="Me"/>
         <discussion discussion_target="Apple" discussion_category="Ball" discussion_id="Me" display_name="Here's a discussion"/>
       </vertical>
