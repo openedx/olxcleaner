@@ -1,3 +1,5 @@
 <chapter display_name="chapter name">
   <sequential url_name="mysequential"/>
+  <sequential url_name="sequence2"/>
+  <sequential url_name="some-other-sequential-not-found" />
 </chapter>

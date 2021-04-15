@@ -25,8 +25,8 @@ from olxcleaner.loader.xml_exceptions import (
     EmptyTag,
     PossiblePointer,
     PossibleHTMLPointer,
-    DuplicateHTMLName
-)
+    DuplicateHTMLName,
+    PointerAlreadyPointedAt)
 
 def test_no_course():
     errorstore = ErrorStore()
@@ -77,7 +77,6 @@ def handle_course2_errors(errorstore):
     assert_error(errorstore, UnexpectedTag, 'sequential/mysequential.xml', "A <chapter> tag was unexpectedly found inside the <vertical> tag")
     assert_error(errorstore, TagMismatch, 'vertical/myvertical7.xml', 'The file is of type <vertical> but opens with a <chapter> tag')
     assert_error(errorstore, SelfPointer, 'vertical/myvertical8.xml', "The tag <vertical url_name='myvertical8'> tag appears to be pointing to itself")
-    assert_error(errorstore, InvalidPointer, 'sequential/mysequential.xml', "The <vertical url_name='myvertical9' display_name='Hi there'> tag looks like it is an invalid pointer tag")
     assert_error(errorstore, UnexpectedContent, 'vertical/myvertical10.xml', "The <vertical url_name='myvertical10' display_name='something'> tag should not contain any text (Here is some co...)")
     assert_error(errorstore, UnexpectedContent, 'sequential/mysequential.xml', "The <vertical> tag should not contain any text (Here's some bad...)")
     assert_error(errorstore, InvalidHTML, 'html/html3.html', 'Unexpected end tag : b, line 1, column 34')
@@ -93,6 +92,9 @@ def handle_course2_errors(errorstore):
     assert_error(errorstore, EmptyTag,'problem/problem3.xml' , "The <problem url_name='problem3' display_name='Blank Common Problem'> tag is unexpectedly empty")
     assert_error(errorstore, URLNameMismatch, 'video/video3.xml', "The opening <video> tag has a mismatched url in url_name.")
     assert_error(errorstore, URLNameMismatch, 'discussion/discussion1.xml', "The opening <discussion> tag has a mismatched url in url_name.")
+    assert_error(errorstore, InvalidPointer, 'sequential/mysequential.xml', "The <vertical url_name='myvertical9' display_name='Hi there'> tag looks like it's trying to be a pointer but contains other attributes.")
+    assert_error(errorstore, PointerAlreadyPointedAt, 'sequential/sequence2.xml', "The <sequential url_name='some-non-existant-sequential'> tag has been pointed to and is pointing to another url_name")
+    assert_error(errorstore, FileDoesNotExist, 'chapter/mychapter.xml', "The <sequential url_name='some-other-sequential-not-found'> tag points to the file sequential/some-other-sequential-not-found.xml that does not exist")
 
 def test_course3():
     """Test for XML error in course.xml"""

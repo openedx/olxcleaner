@@ -64,12 +64,12 @@ class URLNameMismatch(CourseError):
         self._description = f"The opening <{kwargs['tag']}> tag has a mismatched url in url_name."
 
 class InvalidPointer(CourseError):
-    """This tag appears to be trying to point to another file, but contains unexpected attributes, and is hence not pointing."""
+    """This tag looks like it's trying to be a pointer but contains other attributes."""
     _level = ErrorLevel.ERROR
 
     def __init__(self, filename, **kwargs):
         super().__init__(filename)
-        self._description = f"The {kwargs['edxobj']} tag looks like it is an invalid pointer tag"
+        self._description = f"The {kwargs['edxobj']} tag looks like it's trying to be a pointer but contains other attributes."
 
 class FileDoesNotExist(CourseError):
     """The file being pointed to does not exist."""
@@ -86,6 +86,14 @@ class SelfPointer(CourseError):
     def __init__(self, filename, **kwargs):
         super().__init__(filename)
         self._description = f"The tag {kwargs['edxobj']} tag appears to be pointing to itself"
+
+class PointerAlreadyPointedAt(CourseError):
+    """A tag that has been pointed to and is pointing to another url_name"""
+    _level = ErrorLevel.ERROR
+
+    def __init__(self, filename, **kwargs):
+        super().__init__(filename)
+        self._description = f"The {kwargs['edxobj']} tag has been pointed to and is pointing to another url_name"
 
 class UnexpectedTag(CourseError):
     """A tag was found in an inappropriate location (e.g., a `vertical` in a `chapter`), or the tag was not recognized."""
