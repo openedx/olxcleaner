@@ -1,6 +1,6 @@
 # OLX Cleaner
 
-[![Build Status](https://api.travis-ci.org/jolyonb/olxcleaner.svg?branch=master)](https://travis-ci.org/jolyonb/olxcleaner) [![Coverage Status](https://codecov.io/gh/jolyonb/olxcleaner/branch/master/graphs/badge.svg)](https://codecov.io/gh/jolyonb/olxcleaner)
+[![Build Status](https://github.com/openedx/olxcleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/openedx/olxcleaner/actions/workflows/ci.yaml) [![Coverage Status](https://codecov.io/gh/jolyonb/olxcleaner/branch/master/graphs/badge.svg)](https://codecov.io/gh/jolyonb/olxcleaner)
 
 This library aims to perform two functions:
 

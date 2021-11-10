@@ -1,0 +1,41 @@
+name: Python CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  run_tests:
+    name: Python Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+        python-version:
+          - 3.6
+          - 3.7
+    steps:
+    - uses: actions/checkout@v1
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      run: |
+        pip install -U pip wheel
+        pip install -r requirements.txt
+        pip install codecov
+
+    - name: Run Tests
+      run: pytest --cov=olxcleaner --cov-report=term-missing
+
+    - name: Run Coverage
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
