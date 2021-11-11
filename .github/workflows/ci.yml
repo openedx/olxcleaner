@@ -33,7 +33,9 @@ jobs:
         pip install codecov
 
     - name: Run Tests
-      run: pytest --cov=olxcleaner --cov-report=term-missing
+      run: |
+        python -Wd -m pytest
+        python -m coverage xml
 
     - name: Run Coverage
       uses: codecov/codecov-action@v2
