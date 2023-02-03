@@ -105,7 +105,7 @@ class EdxObject(ABC):
         if attribs is None:  # pragma: no cover
             attribs = self.attributes
         # Follows pointer convention in edX: is_pointer_tag in
-        # https://github.com/edx/edx-platform/blob/master/common/lib/xmodule/xmodule/xml_module.py
+        # https://github.com/openedx/edx-platform/blob/master/xmodule/x_module.py
         # Also needs to have no children and no text (not tested)
         return set(attribs.keys()) == self.pointer_attr and self.can_be_pointer
 
