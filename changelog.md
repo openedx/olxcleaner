@@ -1,5 +1,11 @@
 # Change Log
 
+## Version 0.2
+
+### Version 0.2.0
+
+* Add support for python newer versions in CI workflows.
+
 ## Version 0.1
 
 ### Version 0.1.3
