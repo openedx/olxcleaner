@@ -11,7 +11,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="olxcleaner",
-    version="0.2.1",
+    version="0.3.0",
     author="Jolyon Bloomfield",
     author_email="jolyon@mit.edu",
     description="Tool to scan Open edX courses for various errors",
@@ -24,8 +24,9 @@ setuptools.setup(
         "Intended Audience :: Education",
         "Topic :: Education :: Computer Aided Instruction (CAI)",
         "Development Status :: 4 - Beta",
-        "Programming Language :: Python :: 3.6",
-        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: OS Independent",
     ],

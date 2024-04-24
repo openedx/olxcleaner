@@ -17,8 +17,9 @@ jobs:
         os:
           - ubuntu-20.04
         python-version:
-          - 3.6
-          - 3.7
+          - 3.8
+          - 3.11
+          - 3.12
     steps:
     - uses: actions/checkout@v1
     - name: setup python
@@ -29,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: |
         pip install -U pip wheel
-        pip install -r requirements.txt
+        pip install -r requirements/test.txt
         pip install codecov
 
     - name: Run Tests
@@ -38,6 +39,7 @@ jobs:
         python -m coverage xml
 
     - name: Run Coverage
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v4
       with:
         fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
