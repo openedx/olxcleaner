@@ -10,13 +10,11 @@ It is envisioned that this code can be used in many ways to assist with the crea
 
 * Exported courses from Studio can be scanned using this tool in order to pick up errors that are not currently checked by edX (particularly links and dates).
 
-
 ### XML Validation
 
 * Before loading an XML course into Studio, this code can check the XML structure for any errors.
 
 * This code can be used for error detection by educational technologists to simplify their bug sleuthing.
-
 
 ### Report Generation and Course Parsing
 
@@ -28,15 +26,13 @@ It is envisioned that this code can be used in many ways to assist with the crea
 
 * For github workflows, a hook could be added to run this script upon branch push, producing an error report automatically.
 
-
 ## A Community Tool
 
 This code is intended for use by the edX community. Beyond the current possibilities, there are two aspects that should be of value to the community:
 
 * As errors that aren't detected by this tool are found (likely after some sleuthing), the code can be updated to detect such errors.
 
-* As new capabilities for edX are developed, the schema for the new possibilities can be added to this tool so that others can ensure that their code is syntactically correct.  
-
+* As new capabilities for edX are developed, the schema for the new possibilities can be added to this tool so that others can ensure that their code is syntactically correct.
 
 ## Potential edX Buy-in
 
