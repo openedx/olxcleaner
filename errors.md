@@ -44,7 +44,6 @@ Each error has a name that can be used in the `-i` flag to ignore it.
 
 - `WrongObjectType`: The policy file references an object of one type, but that object is found in the course with another type.
 
-
 ## Warnings
 
 - `BadCourseLink`: An internal /course/ link points to a location that doesn't exist.
@@ -79,15 +78,12 @@ Each error has a name that can be used in the `-i` flag to ignore it.
 
 - `SettingOverride`: The policy file is overriding a setting specified in a file.
 
-
 ## Information
 
 - `DuplicateHTMLName`: Two HTML tags point to the same HTML file (`filename` attribute). While this isn't obviously problematic, probably best not to do it.
 
 - `Obsolete`: The way this object has been set up is obsolete.
 
-
 ## Debug
 
 (Currently no errors in this category)
-
