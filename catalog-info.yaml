@@ -1,0 +1,12 @@
+# This file records information about this repo. Its use is described in OEP-55:
+# https://open-edx-proposals.readthedocs.io/en/latest/processes/oep-0055-proc-project-maintainers.html
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: "olxcleaner"
+  description: "A tool for cleaning and validating Open edX course content."
+spec:
+  owner: codewithemad
+  type: "library"
+  lifecycle: "production"
