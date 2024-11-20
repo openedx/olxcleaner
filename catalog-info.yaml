@@ -7,6 +7,6 @@ metadata:
   name: "olxcleaner"
   description: "A tool for cleaning and validating Open edX course content."
 spec:
-  owner: codewithemad
+  owner: "user:codewithemad"
   type: "library"
   lifecycle: "production"
