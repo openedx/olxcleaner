@@ -72,7 +72,7 @@ def main():
 
     # Validate the course
     course, errorstore, url_names = validate(args.course, args.steps, args.ignore)
-    
+
     # Check that the course exists
     if len(errorstore.errors) > 0 and isinstance(errorstore.errors[0], CourseXMLDoesNotExist):
         print(f"Error: {errorstore.errors[0].description}")
