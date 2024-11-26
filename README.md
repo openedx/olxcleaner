@@ -1,11 +1,12 @@
 # OLX Cleaner
 
-[![Build Status](https://github.com/openedx/olxcleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/openedx/olxcleaner/actions/workflows/ci.yaml) [![Coverage Status](https://codecov.io/gh/jolyonb/olxcleaner/branch/master/graphs/badge.svg)](https://codecov.io/gh/jolyonb/olxcleaner)
+[![Build Status](https://github.com/openedx/olxcleaner/actions/workflows/ci.yml/badge.svg)](https://github.com/openedx/olxcleaner/actions/workflows/ci.yaml)
+[![Coverage Status](https://codecov.io/gh/jolyonb/olxcleaner/branch/master/graphs/badge.svg)](https://codecov.io/gh/jolyonb/olxcleaner)
 
 This library aims to perform two functions:
 
-* Parse the XML code for an edX course, loading it into python objects
-* Validate the objects for errors
+* Parse the XML code for an Open edX course, loading it into python objects.
+* Validate the objects for errors.
 
 Based on this, two scripts are provided that leverage the library:
 
@@ -26,11 +27,24 @@ Copyright (C) 2020-2024 Axim, Inc. and Contributors
 
 ## Installation
 
-This package may be installed from PYPI using `pip install olxcleaner`. It requires python 3.6 or later.
+### Using PyPi
 
-### Repository Installation (Advanced)
+This package requires python 3.11 or later.
 
-Clone this repository, and set up a virtual environment for python 3.6 or later. Run `pip install -r requirements.txt` to install the libraries, followed by `pytest` to ensure that all tests are passing as expected.
+```bash
+pip install olxcleaner
+```
+
+### Using Repository
+
+```bash
+git clone https://github.com/openedx/olxcleaner
+cd olxcleaner
+virtualenv -p python3
+make requirements
+```
+
+You can run `pytest` to ensure that all tests are passing as expected.
 
 ## edx-cleaner Usage
 
