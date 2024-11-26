@@ -24,7 +24,6 @@ setuptools.setup(
         "Intended Audience :: Education",
         "Topic :: Education :: Computer Aided Instruction (CAI)",
         "Development Status :: 4 - Beta",
-        "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -37,7 +36,7 @@ setuptools.setup(
        'pytz',
        'pylatexenc'
     ],
-    python_requires='~=3.6',
+    python_requires='>=3.11',
     entry_points={
         'console_scripts': [
             'edx-cleaner=olxcleaner.entries.edxcleaner:main',
