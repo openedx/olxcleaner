@@ -5,7 +5,6 @@ on:
     types: [published]
 
 jobs:
-
   push:
     runs-on: ubuntu-latest
 

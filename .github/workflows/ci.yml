@@ -6,7 +6,7 @@ on:
       - master
   pull_request:
     branches:
-      - '**'
+      - "**"
 
 jobs:
   run_tests:
@@ -21,25 +21,25 @@ jobs:
           - 3.11
           - 3.12
     steps:
-    - uses: actions/checkout@v1
-    - name: setup python
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
+      - uses: actions/checkout@v1
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
-      run: |
-        pip install -U pip wheel
-        pip install -r requirements/test.txt
-        pip install codecov
+      - name: Install dependencies
+        run: |
+          pip install -U pip wheel
+          pip install -r requirements/test.txt
+          pip install codecov
 
-    - name: Run Tests
-      run: |
-        python -Wd -m pytest
-        python -m coverage xml
+      - name: Run Tests
+        run: |
+          python -Wd -m pytest
+          python -m coverage xml
 
-    - name: Run Coverage
-      uses: codecov/codecov-action@v4
-      with:
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Run Coverage
+        uses: codecov/codecov-action@v4
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
