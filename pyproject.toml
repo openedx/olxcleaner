@@ -48,13 +48,14 @@ allow_zero_version = true
 include-package-data = false
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = ["olxcleaner*"]
 exclude = ["*tests*"]
 
 [tool.coverage.run]
 branch = false
-source = ["olxcleaner"]
-omit = ["olxcleaner/entries/*"]
+source_pkgs = ["olxcleaner"]
+omit = ["*/olxcleaner/entries/*"]
 
 [tool.coverage.report]
 show_missing = true

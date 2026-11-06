@@ -38,11 +38,11 @@ upgrade: ## update uv.lock with the latest packages satisfying pyproject.toml
 
 quality: ## check coding style with pycodestyle and pylint
 	touch tests/__init__.py
-	pylint olxcleaner tests *.py
+	pylint src/olxcleaner tests *.py
 	rm tests/__init__.py
-	pycodestyle olxcleaner tests  *.py
-	pydocstyle olxcleaner tests *.py
-	isort --check-only --diff tests test_utils olxcleaner *.py
+	pycodestyle src/olxcleaner tests  *.py
+	pydocstyle src/olxcleaner tests *.py
+	isort --check-only --diff tests test_utils src/olxcleaner *.py
 	python -m build --wheel
 	twine check dist/*
 	make selfcheck
