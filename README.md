@@ -37,14 +37,32 @@ pip install olxcleaner
 
 ### Using Repository
 
+This project uses [uv](https://docs.astral.sh/uv/) to manage its development environment. [Install uv](https://docs.astral.sh/uv/getting-started/installation/) first, then:
+
 ```bash
 git clone https://github.com/openedx/olxcleaner
 cd olxcleaner
-virtualenv -p python3
-make requirements
+make requirements          # runs `uv sync --group dev`, creating .venv from uv.lock
+source .venv/bin/activate
 ```
 
-You can run `pytest` to ensure that all tests are passing as expected.
+`uv sync` manages `.venv` itself and ignores any other activated virtualenv, so don't create one by hand.
+
+## Development
+
+With `.venv` activated:
+
+```bash
+make test                  # run the test suite with pytest
+make quality               # run pylint, pycodestyle, pydocstyle and isort
+tox                        # run the tests on every supported Python version
+```
+
+Dependencies are declared in `pyproject.toml` (runtime dependencies under `[project]`, development tools under `[dependency-groups]`) and pinned in `uv.lock`. To add a dependency, edit `pyproject.toml` and run `uv lock`. To upgrade all pinned versions, run `make upgrade`.
+
+## Releasing
+
+Merges to `master` are released to PyPI automatically by [python-semantic-release](https://python-semantic-release.readthedocs.io/), with the version derived from the [conventional commit](https://www.conventionalcommits.org/) types since the last release. Release notes are published on [GitHub Releases](https://github.com/openedx/olxcleaner/releases).
 
 ## edx-cleaner Usage
 
