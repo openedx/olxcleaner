@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>8.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "olxcleaner"
+dynamic = ["version"]
+description = "Tool to scan Open edX courses for various errors"
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [{name = "Jolyon Bloomfield", email = "jolyon@mit.edu"}]
+requires-python = ">=3.11"
+keywords = ["edx"]
+classifiers = [
+    "Intended Audience :: Education",
+    "Topic :: Education :: Computer Aided Instruction (CAI)",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "lxml",
+    "python-dateutil",
+    "pytz",
+    "pylatexenc",
+]
+
+[project.urls]
+Homepage = "https://github.com/openedx/olxcleaner"
+
+[project.scripts]
+edx-cleaner = "olxcleaner.entries.edxcleaner:main"
+edx-reporter = "olxcleaner.entries.edxreporter:main"
+
+[tool.setuptools_scm]
+version_scheme = "only-version"
+local_scheme = "no-local-version"
+fallback_version = "0.0.0"
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.packages.find]
+include = ["olxcleaner*"]
+exclude = ["*tests*"]
+
+[tool.coverage.run]
+branch = false
+source = ["olxcleaner"]
+omit = ["olxcleaner/entries/*"]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = ["pragma: no cover", "def __repr__", "raise AssertionError",
+    "raise NotImplementedError", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]

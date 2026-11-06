@@ -4,4 +4,6 @@ __version__.py
 
 Contains the project version
 """
-version = "0.1.3"
+from importlib.metadata import version as get_version
+
+version = get_version("olxcleaner")
