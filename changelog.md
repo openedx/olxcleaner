@@ -1,3 +1,5 @@
+> **DEPRECATED:** This changelog is no longer maintained. Release notes are published on [GitHub Releases](https://github.com/openedx/olxcleaner/releases).
+
 # Change Log
 
 ## Version 0.1

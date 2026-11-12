@@ -32,43 +32,26 @@ docs: ## generate Sphinx HTML documentation, including API docs
 	tox -e docs
 	$(BROWSER)docs/_build/html/index.html
 
-# Define PIP_COMPILE_OPTS=-v to get more information during make upgrade.
-PIP_COMPILE = pip-compile --upgrade $(PIP_COMPILE_OPTS)
-
-upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
-	pip install -r requirements/pip-tools.txt
-	# Make sure to compile files after any other files they include!
-	$(PIP_COMPILE) --allow-unsafe --rebuild -o requirements/pip.txt requirements/pip.in
-	$(PIP_COMPILE) -o requirements/pip-tools.txt requirements/pip-tools.in
-	pip install -r requirements/pip-tools.txt
-	$(PIP_COMPILE) -o requirements/base.txt requirements/base.in
-	$(PIP_COMPILE) -o requirements/test.txt requirements/test.in
-	$(PIP_COMPILE) -o requirements/doc.txt requirements/doc.in
-	$(PIP_COMPILE) -o requirements/quality.txt requirements/quality.in
-	$(PIP_COMPILE) -o requirements/ci.txt requirements/ci.in
-	$(PIP_COMPILE) -o requirements/dev.txt requirements/dev.in
+upgrade: ## update uv.lock with the latest packages satisfying pyproject.toml
+	uv run --with edx-lint edx_lint write_uv_constraints pyproject.toml
+	uv lock --upgrade
 
 quality: ## check coding style with pycodestyle and pylint
 	touch tests/__init__.py
-	pylint olxcleaner tests *.py
+	pylint src/olxcleaner tests *.py
 	rm tests/__init__.py
-	pycodestyle olxcleaner tests  *.py
-	pydocstyle olxcleaner tests *.py
-	isort --check-only --diff tests test_utils olxcleaner *.py
-	python setup.py bdist_wheel
+	pycodestyle src/olxcleaner tests  *.py
+	pydocstyle src/olxcleaner tests *.py
+	isort --check-only --diff tests test_utils src/olxcleaner *.py
+	python -m build --wheel
 	twine check dist/*
 	make selfcheck
 
-piptools: ## install pinned version of pip-compile and pip-sync
-	pip install -r requirements/pip.txt
-	pip install -r requirements/pip-tools.txt
-
-requirements: clean_tox piptools ## install development environment requirements
-	pip-sync requirements/dev.txt requirements/private.*
+requirements: clean_tox ## install development environment requirements
+	uv sync --locked --group dev
 
 test: clean ## run tests in the current virtualenv
-	pytest
+	python -Wd -m pytest
 
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml

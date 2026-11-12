@@ -3,3 +3,8 @@ include *.md
 
 # Include the license file
 include LICENSE
+
+# Keep repo-only files out of the sdist (setuptools-scm adds every tracked file)
+prune .github
+prune testcourses
+exclude .gitignore Makefile catalog-info.yaml codecov.yml generate.py pytest.ini tox.ini uv.lock
