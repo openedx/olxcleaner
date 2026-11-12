@@ -3,7 +3,7 @@ name: Semantic Release
 on:
   push:
     branches: [master]
-  # Run manually on an older branch to cut a patch release for that line.
+  # Run manually on master to force a version bump.
   workflow_dispatch:
     inputs:
       force:
@@ -25,6 +25,7 @@ jobs:
     # so a package that only fails to build in its publish job would leave the
     # release half-finished.
     needs: [run_ci]
+    if: github.ref_name == 'master'
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-release-${{ github.ref_name }}
@@ -71,23 +72,8 @@ jobs:
       - name: Check | Fail a manual run that released nothing
         if: github.event_name == 'workflow_dispatch' && steps.release.outputs.released != 'true'
         run: |
-          echo "::error::No release was made. Run this on master or release/<name>, with releasable commits."
+          echo "::error::No release was made. Run this on master, with releasable commits."
           exit 1
-
-      # python-semantic-release also skips the release, and exits successfully,
-      # when the next version is already tagged on another branch, eg. master's
-      # next minor taken by a release branch. Fail so the skip doesn't look green.
-      - name: Check | Fail when the next version is tagged on another branch
-        if: steps.release.outputs.released != 'true'
-        env:
-          TAG: ${{ steps.release.outputs.tag }}
-        run: |
-          git fetch --tags --quiet
-          if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null \
-              && ! git merge-base --is-ancestor "$TAG" HEAD; then
-            echo "::error::$TAG is already tagged on another branch, so this release was skipped."
-            exit 1
-          fi
 
       # This repo has immutable releases enabled, which freezes a release's
       # assets the moment it is published, so assets cannot be attached
@@ -109,7 +95,7 @@ jobs:
           # publishes it -- all within this one command.
           gh release create "$TAG" \
             --verify-tag \
-            --latest=${{ github.ref_name == 'master' }} \
+            --latest \
             --title "$TAG" \
             --notes-file "$RUNNER_TEMP/release_notes.md" \
             dist/*

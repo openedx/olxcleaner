@@ -62,7 +62,7 @@ Dependencies are declared in `pyproject.toml` (runtime dependencies under `[proj
 
 ## Releasing
 
-Merges to `master` are released to PyPI automatically by [python-semantic-release](https://python-semantic-release.readthedocs.io/), with the version derived from the [conventional commit](https://www.conventionalcommits.org/) types since the last release. Release notes are published on [GitHub Releases](https://github.com/openedx/olxcleaner/releases).
+Merges to `master` are released to PyPI automatically by [python-semantic-release](https://python-semantic-release.readthedocs.io/), with the version derived from the [conventional commit](https://docs.openedx.org/projects/openedx-proposals/en/latest/best-practices/oep-0051-bp-conventional-commits.html) types since the last release. Release notes are published on [GitHub Releases](https://github.com/openedx/olxcleaner/releases).
 
 ## edx-cleaner Usage
 

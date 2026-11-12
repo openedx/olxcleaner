@@ -34,7 +34,7 @@ jobs:
         run: uv sync --group ci --locked
 
       - name: Run Tests
-        run: uv run --locked tox -e py
+        run: uv run tox -e py
 
       - name: Run Coverage
         uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0

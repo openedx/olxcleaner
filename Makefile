@@ -48,10 +48,10 @@ quality: ## check coding style with pycodestyle and pylint
 	make selfcheck
 
 requirements: clean_tox ## install development environment requirements
-	uv sync --group dev
+	uv sync --locked --group dev
 
 test: clean ## run tests in the current virtualenv
-	pytest
+	python -Wd -m pytest
 
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml

@@ -7,7 +7,7 @@ name = "olxcleaner"
 dynamic = ["version"]
 description = "Tool to scan Open edX courses for various errors"
 readme = "README.md"
-license = "GPL-3.0-only"
+license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{name = "Jolyon Bloomfield", email = "jolyon@mit.edu"}]
 requires-python = ">=3.11"
